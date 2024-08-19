@@ -6,17 +6,17 @@ document.getElementById('fetch-tweet-button').addEventListener('click', async ()
         if (result.tweet) {
             document.getElementById('input-text').value = result.tweet;
         } else {
-            console.error('No tweet found in response.');
-            document.getElementById('input-text').value = 'Error fetching tweet.';
+            console.error('Nijedna objava nije pronađena u odgovoru.');
+            document.getElementById('input-text').value = 'Greška prilikom preuzimanja objave.';
         }
     } catch (error) {
-        console.error('Error fetching tweet:', error);
-        document.getElementById('input-text').value = 'Error fetching tweet.';
+        console.error('Greška prilikom preuzimanja objave:', error);
+        document.getElementById('input-text').value = 'Greška prilikom preuzimanja objave.';
     }
 });
 
 document.getElementById('submit-button').addEventListener('click', async () => {
-    // Show the overlay and loader
+    // Pokaži overlay i loader
     document.getElementById('overlay').style.display = 'block';
     document.getElementById('loader').style.display = 'block';
 
@@ -32,18 +32,18 @@ document.getElementById('submit-button').addEventListener('click', async () => {
 
         const result = await response.json();
         
-        // Display text tokens
+        // Prikaz tekstualnih tokena
         document.getElementById('response-text').textContent = JSON.stringify(result.text, null, 2);
 
-        // Display explanation JSON
+        // Prikaz objašnjenja u JSON formatu
         document.getElementById('explanation-json').textContent = JSON.stringify(result.explanation_json, null, 2);
 
-        // Parse explanation JSON
+        // Parsiranje objašnjenja iz JSON formata
         result.explanation_json = JSON.parse(result.explanation_json);
 
-        // Generate summary bar chart for general_sentiment
+        // Generisanje grafikona za opšti sentiment
         const summaryBarChart = document.getElementById('summary-bar-chart');
-        summaryBarChart.innerHTML = ''; // Clear previous content
+        summaryBarChart.innerHTML = ''; // Očisti prethodni sadržaj
 
         const generalSentiment = result.explanation_json.general_sentiment;
         if (generalSentiment) {
@@ -52,7 +52,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
 
             const label = document.createElement('span');
             label.className = 'bar-label';
-            label.textContent = 'Overall Sentiment';
+            label.textContent = 'Konačni rezultat';
 
             const bar = document.createElement('div');
             bar.className = 'bar';
@@ -69,22 +69,22 @@ document.getElementById('submit-button').addEventListener('click', async () => {
 
             const scoreLabel = document.createElement('span');
             scoreLabel.className = 'score-label';
-            scoreLabel.textContent = `(${sentimentScore.toFixed(2)})`; // Display score with 2 decimal places
+            scoreLabel.textContent = `(${sentimentScore.toFixed(2)})`; // Prikaz ocene sa 2 decimale
 
             barContainer.appendChild(label);
             barContainer.appendChild(bar);
             barContainer.appendChild(scoreLabel);
             summaryBarChart.appendChild(barContainer);
         } else {
-            document.getElementById('response-text').textContent = 'General sentiment data is not available.';
+            document.getElementById('response-text').textContent = 'Podaci o opštem sentimentu nisu dostupni.';
         }
 
-        // Clear previous word-level bars
+        // Očisti prethodne grafikone za reči
         const barChart = document.getElementById('bar-chart');
         barChart.innerHTML = '';
 
         if (result.explanation_json && result.explanation_json.words) {
-            // Create bars for each word in explanation
+            // Kreiraj grafikone za svaku reč u objašnjenju
             result.explanation_json.words.forEach(word => {
                 const barContainer = document.createElement('div');
                 barContainer.className = 'bar-container';
@@ -108,7 +108,7 @@ document.getElementById('submit-button').addEventListener('click', async () => {
 
                 const scoreLabel = document.createElement('span');
                 scoreLabel.className = 'score-label';
-                scoreLabel.textContent = `(${sentimentScore.toFixed(2)})`; // Display score with 2 decimal places
+                scoreLabel.textContent = `(${sentimentScore.toFixed(2)})`; // Prikaz ocene sa 2 decimale
 
                 barContainer.appendChild(label);
                 barContainer.appendChild(bar);
@@ -116,22 +116,23 @@ document.getElementById('submit-button').addEventListener('click', async () => {
                 barChart.appendChild(barContainer);
             });
         } else {
-            document.getElementById('response-text').textContent = 'Explanation data is not available.';
+            document.getElementById('response-text').textContent = 'Podaci o objašnjenju nisu dostupni.';
         }
 
-        // Show LIME explanation link
+        // Prikaži link za LIME objašnjenje
         const limeLink = document.getElementById('lime-link');
         if (result.lime_explanation) {
             limeLink.href = result.lime_explanation;
-            limeLink.textContent = 'View LIME Explanation';
+            limeLink.textContent = 'Pogledaj LIME analizu';
+            limeLink.classList.remove('disabled');
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('response-text').textContent = 'Error fetching data.';
-        document.getElementById('explanation-json').textContent = 'Error fetching explanation.';
+        console.error('Greška:', error);
+        document.getElementById('response-text').textContent = 'Greška prilikom preuzimanja podataka.';
+        document.getElementById('explanation-json').textContent = 'Greška prilikom preuzimanja objašnjenja.';
     } finally {
-        // Hide the overlay and loader
+        // Sakrij overlay i loader
         document.getElementById('overlay').style.display = 'none';
         document.getElementById('loader').style.display = 'none';
     }

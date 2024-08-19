@@ -3,62 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prediction Result</title>
-    <!-- Bootstrap CSS -->
+    <title>Analiza objava</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header class="text-center mb-4">
-            <h1>Prediction Result</h1>
-        </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Analizator objava</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Analizator</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
 
         <div id="overlay" class="overlay" style="display: none;"></div>
         <div id="loader" class="loader" style="display: none;"></div>
 
         <div class="content">
-
-            <button id="fetch-tweet-button" class="btn btn-secondary btn-block mb-3">Fetch Random Tweet</button>
-            
-            <div class="form-group">
-                <label for="input-text"><h4>Input Text</h4></label>
-                <textarea class="form-control" id="input-text" rows="4">Today was an incredible day filled with boundless joy and laughter, as I had the pleasure of reconnecting with old friends, exploring new and exciting places, and witnessing the beauty of life unfold in the most unexpected and delightful ways; feeling truly grateful and blessed for every moment!</textarea>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <button id="fetch-tweet-button" class="btn btn-secondary btn-block mb-3">Pribavi objavu</button>
+                    <div class="form-group">
+                        <label for="input-text"><h4>Ulazni tekst</h4></label>
+                        <textarea class="form-control" id="input-text" rows="4">Every day is a new opportunity to learn, grow, and become the best version of yourself. Keep going! 🌟 #Positivity #GrowthMindset</textarea>
+                    </div>
+                    <button id="submit-button" class="btn btn-primary btn-block">Pokreni analizu</button>
+                </div>
             </div>
-            <button id="submit-button" class="btn btn-primary btn-block">Get Prediction</button>
 
-            <h4 class="mt-4">Response</h4>
-            <div class="response">
-                <div class="mt-3">
-                    <h5>Text Tokens</h5>
-                    <pre id="response-text" class="bg-light p-3 rounded">No response yet...</pre>
+            <div class="card">
+                <div class="card-body">
+                    <h4>Rezultat</h4>
+                    <div class="mt-3">
+                        <h5>Ključne reči</h5>
+                        <pre id="response-text" class="bg-light p-3 rounded">Još uvek nema rezultata...</pre>
+                    </div>
+                    <div class="mt-3">
+                        <h5>Analiza</h5>
+                        <pre id="explanation-json" class="bg-light p-3 rounded">Još uvek nema rezultata...</pre>
+                    </div>
+                    <div id="summary-bar-chart" class="mt-3"></div>
+                    <div id="bar-chart" class="mt-3"></div>
+                    <a id="lime-link" href="#" class="btn btn-info btn-block mt-3 disabled">Pogledaj LIME analizu</a>
+                    <div style="height: 100px;"></div>
                 </div>
-
-                <div class="mt-3">
-                    <h5>Explanation</h5>
-                    <pre id="explanation-json" class="bg-light p-3 rounded">No explanation yet...</pre>
-                </div>
-
-                <div id="summary-bar-chart"></div>
-
-                <div id="bar-chart" class="mt-3"></div>
-
-                <a id="lime-link" href="#" class="btn btn-info btn-block mt-3">View LIME Explanation</a>
-
-                <div style="height: 50px;"></div>
             </div>
         </div>
     </div>
 
-    <footer class="footer footerCustom">
-        <p>&copy; 2024 Prediction Service. All rights reserved.</p>
+    <footer class="footer bg-dark text-white text-center py-3 footerCustom">
+        <p>&copy; 2024 Twitter analiza. All rights reserved.</p>
     </footer>
 
-    <!-- Bootstrap JS and dependencies -->
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>    
-
+    <script src="js/script.js"></script>
 </body>
 </html>
