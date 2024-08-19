@@ -72,7 +72,9 @@ def get_prediction(request: SentimentRequest):
         #pred = predict_sentiment(text_to_explain[0])
 
         explainer = lime.lime_text.LimeTextExplainer(class_names=['negative', 'positive'])
-        exp = explainer.explain_instance(text_to_explain[0], predict_sentiment, num_features=20)
+        
+        
+        exp = explainer.explain_instance(text_to_explain[0], predict_sentiment, num_features=10)
         exp.save_to_file(html_path)
          
         explanation = exp.as_list()
